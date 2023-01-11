@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+  
+  <div class="container">
+    <h1 class="logo mt-4">URL Shortener</h1>
+
+    <section>
+      <div class="row mt-4">
+        <div class="col-lg-6 col-md-6 col-sm-12 offset-md-3 offset-lg-3 "  >
+          <div class="card p-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Enter the link here" id='urlInput' >
+              <div class="input-group-append">
+                <button type="button" class="btn btn-secondary" id='genShortUrl' >Create Short URL</button>
+              </div>
+            </div>
+
+            <div class="content-view mt-2">
+              <span>Your shortened URL: </span>
+              <a target="_blank" href='' class='view' id="urlView"></a>
+            </div>
+
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+  </div> 
+
+  <script type="text/javascript">
+    $('#genShortUrl').click(function(){
+      console.log($('#urlInput').val())
+      $.ajax({
+        url: '/api/url/shorten',
+        dataType: 'json',
+        type: 'post',
+        data: JSON.stringify({ longUrl: $('#urlInput').val() }),
+        contentType: "application/json",
+          success: function( data, textStatus, jQxhr ){
+            $('.view').html(  data.shortUrl );
+            $('.view').attr(  'href', data.shortUrl );
+          },
+          error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+          }
+      });
+    });
+  </script>
+
+</body>
+</html>
