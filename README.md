@@ -2,8 +2,8 @@
 
 ### Clone the repo
 ```shell
-git clone https://github.com/bryanforbes/intern-angular
-cd intern-angular
+git clone https://github.com/wandeewt/-MyOrderDevelop-Exam.git
+cd -MyOrderDevelop-Exam
 ```
 
 ### Install npm packages
